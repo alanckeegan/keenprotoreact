@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+
+.SearchListBox {
+  border: 3px;
+  border-color: black;
+}
+
+.SearchListItem {
+  border-radius: 20px;
+  color: white;
+  background-color: D2BCE5
+  :hover {
+    background-color: B578E8
+  }
+}
