@@ -14,8 +14,8 @@ color: white;
 }
 `;
 
-const ListItem = ({firstName, lastName, initials, photo, handleClick}) => (
-<ListItemDiv onClick={handleClick}>
+const ListItem = ({firstName, handleClick, lastName, key}) => (
+<ListItemDiv onClick={() => handleClick(firstName, key)} >
 <h3>{firstName} {lastName}</h3>
 </ListItemDiv>
 )

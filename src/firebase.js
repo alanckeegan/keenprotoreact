@@ -10,6 +10,7 @@ var config = {
   storageBucket: "keenproto.appspot.com",
   messagingSenderId: "168947065611"
 };
+
 firebase.initializeApp(config);
 
 export default firebase;
