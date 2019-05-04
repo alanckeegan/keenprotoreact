@@ -7,23 +7,23 @@ import SignUp from './components/SignUp'
 import Profile from './components/Profile'
 import Search from './components/Search'
 import Setup from './components/Setup'
+import {UserProvider} from './user-context'
+
 
 const routing = (
   <Router>
-    <div>
-      <Link to="/">Search</Link>
-      <Link to="/Setup">Setup</Link>
-      <Link to="/SignUp">SignUp</Link>
-      <Link to="/Profile">Profile</Link>
-
-
-
-
-      <Route exact path="/" component={Search} />
-      <Route path="/Setup" component={Setup} />
-      <Route path="/SignUp" component={SignUp} />
-      <Route path="/Profile" component={Profile} />
-    </div>
+    <UserProvider>
+      <div>
+        <Link to="/">Search</Link>
+        <Link to="/Setup">Setup</Link>
+        <Link to="/SignUp">SignUp</Link>
+        <Link to="/Profile">Profile</Link>
+        <Route exact path="/" component={Search} />
+        <Route path="/Setup" component={Setup} />
+        <Route path="/SignUp" component={SignUp} />
+        <Route path="/Profile" component={Profile} />
+      </div>
+    </UserProvider>
   </Router>
 )
 ReactDOM.render(routing, document.getElementById('root'))

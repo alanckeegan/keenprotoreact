@@ -13,9 +13,6 @@ const Search = props => {
 
 // populate list
   useEffect( () => {
-
-
-
     const usersRef = firebase.database().ref('users');
     usersRef.on('value', snapshot => {
       let list = snapshot.val();

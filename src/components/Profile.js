@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import '../App.css';
+import {UserProvider, useUser} from '../user-context'
 
-class Profile extends Component {
-  render() {
+
+
+const Profile = (props) => {
+
+  const { user } = useUser()
+
+  
     return (
-      <div className="App">
-        profile is here
-      </div>
+      <UserProvider>
+        <div>{user ? user.email : "signed out"}</div>
+      </UserProvider>
     );
-  }
 }
 
 export default Profile;
