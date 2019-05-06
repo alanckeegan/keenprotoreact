@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import '../App.css';
 import {useUser} from '../user-context'
 import firebase from 'firebase'
+import PrimaryButton from './PrimaryButton.js'
+import ListContainer from './ListContainer.js';
+import FormTitle from './FormTitle.js';
+import FormSubmissionDiv from './FormSubmissionDiv.js'
+import FormInput from './FormInput.js'
+import FormBox from './FormBox.js'
 
 const SignUp = props => {
     
@@ -45,31 +51,22 @@ const SignUp = props => {
     }
 
   return(
-      <div className="container">
+    <ListContainer>
+      <FormBox>      
         <form onSubmit={handleSubmit}>
+          <FormTitle>
           <h3>Sign Up</h3>
-          <div className="input-field">
-            <label htmlFor="firstName">First Name</label>
-            <input type="firstName" id="firstName" onChange={updateFirstName}/>
-          </div>
-          <div className="input-field">
-            <label htmlFor="lastName">Last Name</label>
-            <input type="lastName" id="lastName" onChange={updateLastName}/>
-          </div>
-          <div className="input-field">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" onChange={updateEmail}/>
-          </div>
-          <div className="input-field">
-            <label htmlFor="password">password</label>
-            <input type="password" id="password" onChange={updatePassword}/>
-          </div>
-          <div className="input-field">
-           <button>Sign Up</button>
-          </div>
+          </FormTitle>
+          <FormInput inputLabel="firstName" text="First Name" updateFunction={updateFirstName}/>
+          <FormInput inputLabel="lastName" text="Last Name" updateFunction={updateLastName}/>
+          <FormInput inputLabel="email" text="Email" updateFunction={updateEmail}/>
+          <FormInput inputLabel="password" text="Password" updateFunction={updatePassword}/>
+          <FormSubmissionDiv>
+            <PrimaryButton>Sign Up</PrimaryButton>
+          </FormSubmissionDiv>
         </form>
-        <button onClick={whoAmI}>WHO AM I?</button> 
-      </div>
+      </FormBox>
+    </ListContainer>
   )
 }
 

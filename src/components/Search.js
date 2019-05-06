@@ -34,10 +34,9 @@ const Search = props => {
           }
         }
         setResults(results)
-        setFilteredResults(results)
       })
       
-    }}, [])
+    }}, [results])
     
     const handleClick = (userObject) => {
       
@@ -82,7 +81,7 @@ const Search = props => {
               <SearchInput type="text" name="name" onChange={updateSearchTerm}/>
             </label>
           </form>
-          {(filteredResults).map(result => (
+          {(searchTerm ? filteredResults : results).map(result => (
             <ListItem userObject={result}  handleClick={handleClick} ></ListItem>))}
           </ListBox>
         </ListContainer>

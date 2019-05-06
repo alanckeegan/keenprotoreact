@@ -14,7 +14,7 @@ const NavLink = styled(Link) `
     flex-grow: 1;
     :hover {
         font-size: 30px;
-        flex-grow: 3;
+        flex-grow: 2;
 
     }
 `;

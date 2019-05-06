@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import '../App.css';
+import FormInput from './FormInput.js'
+import FormBox from './FormBox.js'
 import {useUser} from '../user-context'
+import PrimaryButton from './PrimaryButton.js'
+import ListContainer from './ListContainer.js';
+import FormTitle from './FormTitle.js';
+import FormSubmissionDiv from './FormSubmissionDiv.js'
 
 
 const SignIn = props => {
@@ -33,22 +39,20 @@ const SignIn = props => {
     }
 
   return(
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <h3>Sign In</h3>
-          <div className="input-field">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" onChange={updateEmail}/>
-          </div>
-          <div className="input-field">
-            <label htmlFor="password">password</label>
-            <input type="password" id="password" onChange={updatePassword}/>
-          </div>
-          <div className="input-field">
-           <button>Sign In</button>
-          </div>
-        </form>
-      </div>
+    <ListContainer>
+        <FormBox>      
+            <form onSubmit={handleSubmit}>
+            <FormTitle>
+            <h3>Sign In</h3>
+            </FormTitle>
+            <FormInput inputLabel="email" text="Email" updateFunction={updateEmail}/>
+            <FormInput inputLabel="password" text="Password" updateFunction={updatePassword}/>
+            <FormSubmissionDiv>
+            <PrimaryButton>Sign In</PrimaryButton>
+            </FormSubmissionDiv>
+            </form>
+        </FormBox>
+    </ListContainer>
   )
 }
 

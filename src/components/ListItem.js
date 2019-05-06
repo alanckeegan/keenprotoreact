@@ -20,9 +20,8 @@ text-align; center;
 
 
 :hover{
-  background: #9942E5
-  color: white;
-  
+  background: linear-gradient(90deg, rgba(153,66,229,1) 10%, rgba(255,255,255,1) 100%);
+  color: rgba(153,66,229,1);
   border:  3px solid rgba(210,188,229,1);
 }
 `;

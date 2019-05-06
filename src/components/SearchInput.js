@@ -12,7 +12,7 @@ const SearchInput = styled.input`
     border-bottom: 1px solid rgb(214, 214, 214);
     color: rgba(90, 90, 90);
     text-align: center;
-    margin: 10px;
+    margin:10vh 0;
 
     
     
