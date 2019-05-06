@@ -1,31 +1,19 @@
 import React, { useState } from 'react';
 import '../App.css';
 import {useUser} from '../user-context'
-import firebase from 'firebase'
 
-const SignUp = props => {
-    
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+
+const SignIn = props => {
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const { createUser, user, setUser} = useUser()
+    const { user, logInUser } = useUser()
 
     
     const handleSubmit = async(e) => {
       e.preventDefault()  
-      await createUser(email, password, firstName, lastName)
-    }
-
-    const updateFirstName = (e) => {
-      setFirstName(e.target.value)
-      console.log(firstName)
-    }
-
-    const updateLastName = (e) => {
-      setLastName(e.target.value)
-      console.log(lastName)
+      await logInUser(email, password)
     }
 
     const updateEmail = (e) => {
@@ -47,15 +35,7 @@ const SignUp = props => {
   return(
       <div className="container">
         <form onSubmit={handleSubmit}>
-          <h3>Sign Up</h3>
-          <div className="input-field">
-            <label htmlFor="firstName">First Name</label>
-            <input type="firstName" id="firstName" onChange={updateFirstName}/>
-          </div>
-          <div className="input-field">
-            <label htmlFor="lastName">Last Name</label>
-            <input type="lastName" id="lastName" onChange={updateLastName}/>
-          </div>
+          <h3>Sign In</h3>
           <div className="input-field">
             <label htmlFor="email">Email</label>
             <input type="email" id="email" onChange={updateEmail}/>
@@ -65,13 +45,12 @@ const SignUp = props => {
             <input type="password" id="password" onChange={updatePassword}/>
           </div>
           <div className="input-field">
-           <button>Sign Up</button>
+           <button>Sign In</button>
           </div>
         </form>
-        <button onClick={whoAmI}>WHO AM I?</button> 
       </div>
   )
 }
 
 
-export default SignUp;
+export default SignIn;

@@ -1,96 +1,94 @@
 import React, { Component, useState, useEffect } from 'react';
 import ListItem from './ListItem.js'
 import firebase from '../firebase.js';
+import { useUser} from '../user-context'
+import ListContainer from './ListContainer.js'
+import ListBox from './ListBox.js'
+import SearchInput from './SearchInput.js'
 import '../App.css';
 
 
 // const contactList = ["Claire", "Jack", "Bob", "Kieran"]
 
 const Search = props => {
-
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
-
-// populate list
-  useEffect( () => {
+  const [filteredResults, setFilteredResults] = useState([results])
+  const { user, currentUserLikes, likesCurrentUser, normalizedName, hasMatchedCurrentUser} = useUser()
+  
+  // populate list
+  useEffect( () => { if(user){
     const usersRef = firebase.database().ref('users');
     usersRef.on('value', snapshot => {
       let list = snapshot.val();
-      console.log(list);
       let results = [];
       for(let item in list){
-        results.push(list[item])
+        // Make sure not listing self, not listing likes, and not listing matched users
+        if (
+          !currentUserLikes(list[item]) 
+          && !hasMatchedCurrentUser(list[item])
+          && list[item].key != user.uid)  
+          {
+            results.push(list[item]) 
+          }
+        }
+        setResults(results)
+        setFilteredResults(results)
+      })
+      
+    }}, [])
+    
+    const handleClick = (userObject) => {
+      
+      if (likesCurrentUser(userObject)) {
+        
+        const matchesRef = firebase.database().ref('matches')
+        const match = {
+          secondLiker: user.uid,
+          firstLiker: userObject.key
+        } 
+        matchesRef.push(match)
+        
+      } else {
+        
+        const likesRef = firebase.database().ref('likes')
+        const like = {
+          liker: user.uid,
+          liked: userObject.key
+        } 
+        likesRef.push(like)
+        
       }
-      setResults(results)
+    }
+    
+    
+    const updateSearchTerm = e => {
+      const newSearchTerm = e.target.value.replace(/\s/g,'')
+      setSearchTerm(newSearchTerm)
       console.log(results)
-    })
-
-  }, [])
-
-  //will need to get original "everyone" results here later
-  //contactList prop as plug
-
-// button so seed database
-  // const seedList = () => {
-  //   const usersRef = firebase.database().ref('users')
-  //   const seedUsers = [
-  //     {
-  //       firstName: 'John',
-  //       lastName: 'Mulaney'
-  //     },
-  //     {
-  //       firstName: 'Charlie',
-  //       lastName: 'McCharles'
-  //     },
-  //     {
-  //       firstName: 'Theodore',
-  //       lastName: 'Roosevelt'
-  //     }
-  //   ]
-  //   console.log(seedUsers)
-  //   seedUsers.forEach(function (user) {
-  //     usersRef.push(user)
-  //   })
-  // }
-  // then render this
-  //  <h3 onClick={seedList}>SEED DATABASE</h3>
-
-  const handleClick = (firstName, key) => {
-
-    // const likesRef = firebase.database().ref('likes')
-    // const like = {
-    //   liker: 'TestUser',
-    //   liked: [e.target].toString()
-    // }
-    //
-    // likesRef.push(like)
-
-    console.log(firstName)
-    console.log(key)
-  }
-
-
-  const updateSearchTerm = e => {
-    setSearchTerm(e.target.value)
-  }
-
-
+      const newFilteredResults = results.filter(result => normalizedName(result).includes(newSearchTerm))
+      setFilteredResults(newFilteredResults)
+    }
+    
+    
     return (
       <div className="App">
-        <form>
-          <label>
-            <input type="text" name="name" onChange={updateSearchTerm}/>
-            <div className="SearchListBox">
-            {results.map(result => (
-              <ListItem firstName={result.firstName}  lastName={result.lastName}  handleClick={handleClick} key={result.key}>
-            </ListItem>
-            ))}
-            </div>
-          </label>
+      
+      <ListContainer>
+        <ListBox>
+          <form>
+            <label>
+              <SearchInput type="text" name="name" onChange={updateSearchTerm}/>
+            </label>
           </form>
-      </div>
-    );
-
-}
-
-export default Search;
+          {(filteredResults).map(result => (
+            <ListItem userObject={result}  handleClick={handleClick} ></ListItem>))}
+          </ListBox>
+        </ListContainer>
+        </div>
+        );
+        
+      }
+      
+      export default Search;
