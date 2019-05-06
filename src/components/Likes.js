@@ -2,6 +2,9 @@ import React, { Component, useState, useEffect } from 'react';
 import ListItem from './ListItem.js'
 import firebase from '../firebase.js';
 import { useUser} from '../user-context'
+import ListContainer from './ListContainer.js'
+import ListBox from './ListBox.js'
+import SearchInput from './SearchInput.js'
 import '../App.css';
 
 
@@ -29,17 +32,13 @@ const Likes = props => {
 
   return (
     <div className="App">
-      
-        <label>
-          <div className="SearchListBox">
-          {results.map(result => (
-            <ListItem userObject={result}  handleClick={handleClick} >
-          </ListItem>
-          ))}
-          </div>
-        </label>
-    
-    </div>
+      <ListContainer>
+      <ListBox>
+        {(results).map(result => (
+          <ListItem userObject={result}  handleClick={handleClick} ></ListItem>))}
+        </ListBox>
+      </ListContainer>
+     </div>
   );
 
 }

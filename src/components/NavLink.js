@@ -10,9 +10,12 @@ const NavLink = styled(Link) `
     text-decoration: none;
     font-family: nunito;
     font-weight: bold;
-    .hover {
-        font-size: 25px;
-        padding: 15px;
+    text-align: center;
+    flex-grow: 1;
+    :hover {
+        font-size: 30px;
+        flex-grow: 3;
+
     }
 `;
 
