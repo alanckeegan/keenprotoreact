@@ -9,6 +9,9 @@
         "config": { "distDir": "build" }
       }
     ],
+    "engines": {
+        "node": "11.7.0"
+      },
     "routes": [
       {
         "src": "/static/(.*)",
