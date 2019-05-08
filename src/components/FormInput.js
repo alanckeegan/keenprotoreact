@@ -19,14 +19,14 @@ const FormInputLabel = styled.label`
     flex-grow: 1;
     font-family: Nunito;
     font-size: 30px;
-    min-height: 40px;
+    min-height: 30px;
     margin-right: 20px;
 `
 
 const InputDiv = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 5vh;
+    padding: 3vh;
 `
 
 

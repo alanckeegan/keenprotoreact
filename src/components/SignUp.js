@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
 import '../App.css';
-import {useUser} from '../user-context'
-import firebase from 'firebase'
-import PrimaryButton from './PrimaryButton.js'
+import {useUser} from '../user-context';
+import PrimaryButton from './PrimaryButton.js';
 import ListContainer from './ListContainer.js';
 import FormTitle from './FormTitle.js';
-import FormSubmissionDiv from './FormSubmissionDiv.js'
-import FormInput from './FormInput.js'
-import FormBox from './FormBox.js'
+import { Redirect } from 'react-router-dom';
+import FormSubmissionDiv from './FormSubmissionDiv.js';
+import FormInput from './FormInput.js';
+import FormBox from './FormBox.js';
+import NavBar from './NavBar.js';
 
 const SignUp = props => {
     
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const [redirectTrigger, setRedirectTrigger] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const { createUser, user, setUser} = useUser()
 
+ 
     
     const handleSubmit = async(e) => {
       e.preventDefault()  
       await createUser(email, password, firstName, lastName)
+      setRedirectTrigger(true)
     }
 
     const updateFirstName = (e) => {
@@ -44,13 +48,9 @@ const SignUp = props => {
       console.log(password)
     }
 
-    const whoAmI = () => { 
-      user ? 
-      console.log(user.email):
-      console.log("signed out")
-    }
-
   return(
+    <div className="App">
+    <NavBar user={user}/>
     <ListContainer>
       <FormBox>      
         <form onSubmit={handleSubmit}>
@@ -65,8 +65,10 @@ const SignUp = props => {
             <PrimaryButton>Sign Up</PrimaryButton>
           </FormSubmissionDiv>
         </form>
+       {(redirectTrigger) ? (<Redirect to='/Search' />) : ''}
       </FormBox>
     </ListContainer>
+    </div>
   )
 }
 

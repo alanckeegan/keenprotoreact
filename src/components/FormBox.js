@@ -10,7 +10,7 @@ const FormBox = styled.div`
     position: relative;
     border-radius: 40px;
     border: 3px solid #9942E5;
-    margin: 10vh 0vh;
+    margin: 10vh 0 30vh 0;;
 `;
 
 

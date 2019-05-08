@@ -4,8 +4,8 @@ import * as serviceWorker from './serviceWorker';
 import './index.css'
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import SignUp from './components/SignUp'
-import Profile from './components/Profile'
 import Search from './components/Search'
+import Landing from './components/Landing'
 import Likes from './components/Likes'
 import SignIn from './components/SignIn'
 import Matches from './components/Matches'
@@ -18,18 +18,10 @@ const routing = (
   <Router>
     <UserProvider>
       <div>
-        <NavBar>
-        <NavLink to="/">Search</NavLink>
-        <NavLink to="/Likes">Likes</NavLink>
-        <NavLink to="/SignUp">SignUp</NavLink>
-        <NavLink to="/Profile">Profile</NavLink>
-        <NavLink to="/SignIn">SignIn</NavLink>
-        <NavLink to="/Matches">Matches</NavLink>
-        </NavBar>  
-        <Route exact path="/" component={Search} />
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/Search" component={Search} />
         <Route path="/Likes" component={Likes} />
         <Route path="/SignUp" component={SignUp} />
-        <Route path="/Profile" component={Profile} />
         <Route path="/SignIn" component={SignIn} />
         <Route path="/Matches" component={Matches} />
       </div>

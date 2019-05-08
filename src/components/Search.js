@@ -5,6 +5,8 @@ import { useUser} from '../user-context'
 import ListContainer from './ListContainer.js'
 import ListBox from './ListBox.js'
 import SearchInput from './SearchInput.js'
+import logo from '../assets/keenlogotransparent.png';
+import NavBar from './NavBar.js'
 import '../App.css';
 
 
@@ -73,12 +75,13 @@ const Search = props => {
     
     return (
       <div className="App">
-      
+      <NavBar user={user}/>
       <ListContainer>
         <ListBox>
+        <img src={logo} alt="logo" />
           <form>
             <label>
-              <SearchInput type="text" name="name" onChange={updateSearchTerm}/>
+              <SearchInput placeholder="Who are you keen on?" type="text" name="name" onChange={updateSearchTerm}/>
             </label>
           </form>
           {(searchTerm ? filteredResults : results).map(result => (

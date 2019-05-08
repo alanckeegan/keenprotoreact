@@ -1,11 +1,12 @@
 import React, { Component, useState, useEffect } from 'react';
 import ListItem from './ListItem.js'
-import firebase from '../firebase.js';
 import { useUser} from '../user-context'
 import ListContainer from './ListContainer.js'
 import ListBox from './ListBox.js'
-import SearchInput from './SearchInput.js'
 import '../App.css';
+import NavBar from './NavBar.js'
+import PageTitle from './PageTitle.js'
+
 
 
 // const contactList = ["Claire", "Jack", "Bob", "Kieran"]
@@ -13,7 +14,7 @@ import '../App.css';
 const Likes = props => {
 
   const [results, setResults] = useState([]);
-  const { user, getLikes } = useUser()
+  const { user, getLikes } = useUser();
 
 // populate list
   useEffect( () => {
@@ -32,8 +33,11 @@ const Likes = props => {
 
   return (
     <div className="App">
+      <NavBar user={user}/>
       <ListContainer>
+      
       <ListBox>
+      <PageTitle>{user ? `Your Likes` : "Please Log In"}</PageTitle>
         {(results).map(result => (
           <ListItem userObject={result}  handleClick={handleClick} ></ListItem>))}
         </ListBox>
